@@ -13,6 +13,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"time"
@@ -36,7 +37,7 @@ func main() {
 
 	startSync := time.Now()
 	manager := s3sync.New(sess)
-	err = manager.Sync(os.Args[1], os.Args[2])
+	err = manager.Sync(context.Background(), os.Args[1], os.Args[2])
 	syncTime := (time.Now().UnixNano() - startSync.UnixNano()) / (int64(time.Millisecond) / int64(time.Nanosecond))
 	if err != nil {
 		panic(err)

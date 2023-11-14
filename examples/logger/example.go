@@ -13,6 +13,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 
@@ -46,7 +47,7 @@ func main() {
 
 	s3sync.SetLogger(&Logger{})
 
-	err = s3sync.New(sess).Sync(os.Args[1], os.Args[2])
+	err = s3sync.New(sess).Sync(context.Background(), os.Args[1], os.Args[2])
 	if err != nil {
 		panic(err)
 	}

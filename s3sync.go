@@ -88,7 +88,7 @@ func New(sess *session.Session, options ...Option) *Manager {
 }
 
 // Sync syncs the files between s3 and local disks.
-func (m *Manager) Sync(source, dest string) error {
+func (m *Manager) Sync(ctx context.Context, source, dest string) error {
 	sourceURL, err := url.Parse(source)
 	if err != nil {
 		return err
@@ -99,7 +99,7 @@ func (m *Manager) Sync(source, dest string) error {
 		return err
 	}
 
-	ctx, cancel := context.WithCancel(context.Background())
+	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
 	chJob := make(chan func())

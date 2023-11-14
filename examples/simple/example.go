@@ -13,6 +13,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 
@@ -33,7 +34,7 @@ func main() {
 	fmt.Printf("from=%s\n", os.Args[1])
 	fmt.Printf("to=%s\n", os.Args[2])
 
-	err = s3sync.New(sess).Sync(os.Args[1], os.Args[2])
+	err = s3sync.New(sess).Sync(context.Background(), os.Args[1], os.Args[2])
 	if err != nil {
 		panic(err)
 	}
